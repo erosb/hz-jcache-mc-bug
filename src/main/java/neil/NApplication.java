@@ -85,18 +85,7 @@ public class NApplication implements CacheEntryCreatedListener<String, String>, 
 		HazelcastInstance hazelcastServer = Hazelcast.newHazelcastInstance(config);
 
 
-
-		CachingProvider cachingProvider = Caching.getCachingProvider();
-
-		CacheManager cacheManager = cachingProvider.getCacheManager();
-
-
-
-		CompleteConfiguration<String, String> configStringString = new MutableConfiguration<String, String>()
-
-				.setTypes(String.class, String.class);
-
-		Cache<String, String> cache1 = cacheManager.createCache(CACHE_NAME, configStringString);
+		Cache<String, String> cache1 = hazelcastServer.getCacheManager().getCache(CACHE_NAME);
 
 
 
