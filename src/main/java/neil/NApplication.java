@@ -38,6 +38,7 @@ import javax.cache.spi.CachingProvider;
 
 import com.hazelcast.cache.ICache;
 
+import com.hazelcast.client.HazelcastClient;
 import com.hazelcast.config.CacheSimpleConfig;
 
 import com.hazelcast.config.Config;
@@ -84,8 +85,13 @@ public class NApplication implements CacheEntryCreatedListener<String, String>, 
 
 		HazelcastInstance hazelcastServer = Hazelcast.newHazelcastInstance(config);
 
+		HazelcastInstance client = HazelcastClient.newHazelcastClient();
+		CacheSimpleConfig simpleConfig = new CacheSimpleConfig("testcache2");
+		client.getConfig().addCacheConfig(simpleConfig);
+		Cache<String, String> cache1 =  client.getCacheManager().getCache("testcache2");
+		//		Cache<String, String> cache1 = hazelcastServer.getCacheManager().getCache(CACHE_NAME);
 
-		Cache<String, String> cache1 = hazelcastServer.getCacheManager().getCache(CACHE_NAME);
+
 
 
 
